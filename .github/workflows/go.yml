@@ -43,8 +43,8 @@ jobs:
       run: go build -v ./...
 
     - name: Run go get Migration
-      run: go get -u -d github.com/golang-migrate/migrate/cmd/migrate
-      
+      run: go get github.com/golang-migrate/migrate/cmd/migrate
+
     - name: Run migrations
       run: make migrateup
 
