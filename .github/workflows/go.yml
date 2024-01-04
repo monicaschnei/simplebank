@@ -1,20 +1,17 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
-
-name: Go
-
+name: Run unit tests
+ 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ master ]
   pull_request:
-    branches: [ "master" ]
-
+    branches: [ master ]
+ 
 jobs:
-
-  build:
+ 
+  test:
+    name: Test
     runs-on: ubuntu-latest
-
-
+ 
     services:
       postgres:
         image: postgres:16-alpine
@@ -29,27 +26,22 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
-
+ 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
-
-    - name: Build
-      run: go build -v ./...
-
-    - name: Run golang-migrate
-      run:  | 
-      curl -L https://github.com/golang-migrate/migrate/releases/download/v4.12.2/migrate.linux-amd64.tar.gz | tar xvz 
-      | 
-      sudo mv migrate.linux-amd64 /bin/sh
-
-    - name: Run migrations
-      run: make migrateup
-
-    - name: Test
-      run: go test -v ./...
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.19
+        id: go
+ 
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v4
+ 
+      - name: Install golang-migrate
+        run: |
+          curl -L https://github.com/golang-migrate/migrate/releases/download/v4.14.1/migrate.linux-amd64.tar.gz | tar xvz
+          sudo mv migrate.linux-amd64 /usr/bin/migrate
+          which migrate
+ 
+      - name: Run migrations
+        run: make migrateup
