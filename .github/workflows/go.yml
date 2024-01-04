@@ -40,12 +40,6 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-
-    - name: Install golang-migrate
-      run: 
-      which migrate
-      migrate -version
-
     - name: Run migrations
       run: make migrateup
 
