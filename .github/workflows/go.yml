@@ -40,9 +40,6 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-    - name: Test
-      run: go test -v ./...
-
     - name: Run postgres
       run: make postgres
 
@@ -51,3 +48,6 @@ jobs:
 
     - name: Run migrations
       run: make migrateup
+
+    - name: Test
+      run: go test -v ./...
