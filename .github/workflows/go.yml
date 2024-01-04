@@ -40,12 +40,6 @@ jobs:
     - name: Build
       run: go build -v ./...
 
-    - name: Run postgres
-      run: make postgres
-
-    - name: Run createdb
-      run: make createdb
-
     - name: Run migrations
       run: make migrateup
 
