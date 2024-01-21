@@ -5,7 +5,7 @@
             "name": "SimpleBank",
             "type": "go",
             "request": "launch",
-            "mode": "debug",
+            "mode": "auto",
             // Indicate the target here
             "program": "${fileDirname}/main.go",
         }
