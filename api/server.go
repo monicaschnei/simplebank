@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	db "github.com/monicaschnei/simplebank/db/sqlc"
+	"github.com/monicaschnei/simplebank/util"
 )
 
 // Server serves HTTP requests for our banking service
@@ -14,7 +15,7 @@ type Server struct {
 }
 
 // NewServer creates a new HTTP server and setup routing
-func NewServer(store db.Store) *Server {
+func NewServer(config util.Config, store db.Store) (*Server, error) {
 	server := &Server{store: store}
 	router := gin.Default()
 
@@ -31,7 +32,7 @@ func NewServer(store db.Store) *Server {
 	router.POST("/transfers", server.createTransfer)
 
 	server.router = router
-	return server
+	return server, nil
 }
 
 // Start runs the HTTP server on a specific address

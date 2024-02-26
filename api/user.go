@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
 	db "github.com/monicaschnei/simplebank/db/sqlc"
-	"github.com/monicaschnei/simplebank/db/util"
+	"github.com/monicaschnei/simplebank/util"
 	"net/http"
 	"time"
 )
